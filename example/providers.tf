@@ -7,10 +7,20 @@ terraform {
   }
 }
 
+
+locals {
+  aws_region = var.aws_region
+  global_tags = merge(var.global_tags,
+    {
+      environment = var.environment
+    }
+  )
+}
+
 provider "aws" {
   region = var.aws_region
 
   default_tags {
-    tags = var.global_tags
+    tags = local.global_tags
   }
 }

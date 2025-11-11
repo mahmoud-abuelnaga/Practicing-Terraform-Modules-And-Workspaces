@@ -26,3 +26,13 @@ variable "vpc" {
     cidr = string
   })
 }
+
+variable "environment" {
+  type        = string
+  description = "The deployment environment (e.g., dev, prod, staging)."
+
+  validation {
+    condition     = contains(["dev", "prod", "staging"], var.environment)
+    error_message = "Invalid environment specified. Use 'dev', 'prod', or 'staging'."
+  }
+}
